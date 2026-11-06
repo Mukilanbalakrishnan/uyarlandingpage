@@ -9,6 +9,7 @@ import {
   MapPin,
   ShieldCheck
 } from 'lucide-react';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
 
 interface AboutUsProps {
   onWorkTogether: () => void;
@@ -40,7 +41,10 @@ export const AboutUs: React.FC<AboutUsProps> = ({ onWorkTogether }) => {
   ];
 
   return (
-    <section id="about" className="relative w-full overflow-hidden border-b border-[#EAEAE6]">
+    <section id="about" className="relative w-full overflow-hidden">
+      
+      {/* Dynamic Animated Flowing Neon Lines (Horizontal Right-to-Left - Hero background continuity) */}
+      <FlowingBackgroundRibbon idPrefix="about" variant="horizontal-mid" opacity={0.60} />
       
       {/* Full-bleed split layout: Left Dark, Right Light */}
       <div className="flex flex-col lg:flex-row w-full min-h-[500px] relative">

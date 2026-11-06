@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
 
 interface FinalCTAProps {
   onStartProject: () => void;
@@ -8,6 +9,8 @@ interface FinalCTAProps {
 export const FinalCTA: React.FC<FinalCTAProps> = ({ onStartProject }) => {
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-[#171717] text-white relative overflow-hidden">
+      {/* Dynamic Animated Flowing Neon Lines (Hero background continuity - Dark glow) */}
+      <FlowingBackgroundRibbon idPrefix="finalcta" variant="dark-glow" opacity={0.8} />
       {/* Subtle architectural dot grid */}
       <div 
         className="absolute inset-0 opacity-10 pointer-events-none"

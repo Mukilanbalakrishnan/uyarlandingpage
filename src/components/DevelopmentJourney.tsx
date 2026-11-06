@@ -8,6 +8,7 @@ import {
   TrendingUp,
   Sparkles
 } from 'lucide-react';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
 
 interface JourneyStep {
   num: string;
@@ -151,6 +152,9 @@ export const DevelopmentJourney: React.FC = () => {
 
   return (
     <section id="journey" className="py-10 sm:py-12 lg:py-14 bg-[#FAFAFC] relative overflow-hidden">
+      
+      {/* Dynamic Animated Flowing Neon Lines (Horizontal Right-to-Left - Hero background continuity) */}
+      <FlowingBackgroundRibbon idPrefix="journey" variant="horizontal-mid" opacity={0.65} />
       
       {/* Ambient background glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-amber-50/40 via-purple-50/30 to-transparent rounded-full blur-[120px] pointer-events-none -z-10" />

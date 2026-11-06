@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
 import { 
   PenTool, 
   Sparkles, 
@@ -26,11 +27,11 @@ export const WhyUyar: React.FC = () => {
   ];
 
   const mobileNodes = [
-    { x: 43.4, y: 124.1 },
-    { x: 107.1, y: 180.5 },
-    { x: 129.9, y: 260.0 },
-    { x: 107.1, y: 339.5 },
-    { x: 43.4, y: 395.9 },
+    { x: 30, y: 32 },
+    { x: 45, y: 118 },
+    { x: 51, y: 204 },
+    { x: 45, y: 290 },
+    { x: 30, y: 376 },
   ];
 
   const pillars: PillarItem[] = [
@@ -67,7 +68,10 @@ export const WhyUyar: React.FC = () => {
   ];
 
   return (
-    <section id="why-uyar" className="py-8 sm:py-10 lg:py-12 bg-white relative border-b border-[#EAEAE6] overflow-hidden scroll-mt-20">
+    <section id="why-uyar" className="py-6 sm:py-8 lg:py-12 bg-white relative overflow-hidden scroll-mt-20">
+      
+      {/* Dynamic Animated Flowing Neon Lines (Horizontal Right-to-Left - Hero background continuity) */}
+      <FlowingBackgroundRibbon idPrefix="why" variant="horizontal-mid" opacity={0.60} />
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-blue-100/15 rounded-full blur-[140px] pointer-events-none" />
@@ -226,16 +230,16 @@ export const WhyUyar: React.FC = () => {
         </div>
 
         {/* ======================================================== */}
-        {/* MOBILE & TABLET VIEW (< lg): EXACT SAME CURVED RIBBON!   */}
+        {/* MOBILE & TABLET VIEW (< lg): ERGONOMIC CURVED RIBBON    */}
         {/* ======================================================== */}
-        <div className="block lg:hidden relative w-full max-w-[390px] mx-auto min-h-[640px]">
+        <div className="block lg:hidden relative w-full max-w-[420px] mx-auto">
           
           {/* Header at top */}
-          <div className="text-center mb-6">
-            <span className="text-[10px] font-bold text-[#2563EB] tracking-widest uppercase bg-blue-50 px-3 py-1 rounded-full inline-block border border-blue-100 mb-2">
+          <div className="text-center mb-2 sm:mb-3">
+            <span className="text-[10px] font-bold text-[#2563EB] tracking-widest uppercase bg-blue-50 px-3 py-1 rounded-full inline-block border border-blue-100 mb-1.5">
               THE UYAR ADVANTAGE
             </span>
-            <h3 className="text-2xl font-black text-[#0E0725] leading-tight mb-1.5">
+            <h3 className="text-xl sm:text-2xl font-black text-[#0E0725] leading-tight mb-1">
               The 5 Pillars of Why Choose <span className="text-[#2563EB]">Uyar.</span>
             </h3>
             <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed">
@@ -243,59 +247,113 @@ export const WhyUyar: React.FC = () => {
             </p>
           </div>
 
-          {/* Mobile Semicircular Ribbon Canvas */}
-          <div className="relative w-full h-[520px]">
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 370 520" fill="none">
+          {/* Mobile Ergonomic Ribbon Canvas */}
+          <div className="relative w-full h-[410px]">
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 370 410" fill="none">
               <defs>
                 <filter id="mRibbonGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feDropShadow dx="1" dy="4" stdDeviation="6" floodColor="#0E0725" floodOpacity="0.08" />
+                  <feDropShadow dx="1" dy="3" stdDeviation="5" floodColor="#0E0725" floodOpacity="0.08" />
                 </filter>
+                <linearGradient id="mRibbonBlueGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="#00A3C4" />
+                  <stop offset="50%" stopColor="#2563EB" />
+                  <stop offset="100%" stopColor="#7C3AED" />
+                </linearGradient>
               </defs>
 
               {/* Outer Guideline Arc */}
-              <path d="M 45 92 A 180 180 0 0 1 45 428" stroke="#CBD5E1" strokeWidth="1" strokeLinecap="round" />
+              <path 
+                d="M 18 32 C 46 126, 46 282, 18 376" 
+                stroke="#CBD5E1" 
+                strokeWidth="1.2" 
+                strokeLinecap="round" 
+                strokeDasharray="3 3"
+              />
 
-              {/* 3D Ribbon Track: thick arc */}
-              <path d="M 43.4 124.1 A 150 150 0 0 1 43.4 395.9" stroke="#F1F5F9" strokeWidth="48" strokeLinecap="round" filter="url(#mRibbonGlow)" />
-              <path d="M 43.4 124.1 A 150 150 0 0 1 43.4 395.9" stroke="#E2E8F0" strokeWidth="45" strokeLinecap="round" />
-              <path d="M 43.4 124.1 A 150 150 0 0 1 43.4 395.9" stroke="#FFFFFF" strokeWidth="42" strokeLinecap="round" />
+              {/* 3D Ribbon Track: Base Shadow */}
+              <path 
+                d="M 30 32 C 58 126, 58 282, 30 376" 
+                stroke="#F1F5F9" 
+                strokeWidth="44" 
+                strokeLinecap="round" 
+                filter="url(#mRibbonGlow)" 
+              />
+              {/* Ribbon Border */}
+              <path 
+                d="M 30 32 C 58 126, 58 282, 30 376" 
+                stroke="#E2E8F0" 
+                strokeWidth="40" 
+                strokeLinecap="round" 
+              />
+              {/* Ribbon White Surface */}
+              <path 
+                d="M 30 32 C 58 126, 58 282, 30 376" 
+                stroke="#FFFFFF" 
+                strokeWidth="36" 
+                strokeLinecap="round" 
+              />
+              {/* Glowing Center Guide Accent */}
+              <path 
+                d="M 30 32 C 58 126, 58 282, 30 376" 
+                stroke="url(#mRibbonBlueGrad)" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                opacity="0.8"
+              />
             </svg>
 
             {/* 5 Unified Mobile Rows */}
             {pillars.map((pillar, idx) => {
               const node = mobileNodes[idx];
+              const isActive = activePillar === idx;
               return (
                 <div
                   key={pillar.num}
-                  className="absolute flex items-center z-20"
+                  onClick={() => setActivePillar(isActive ? null : idx)}
+                  className="absolute flex items-center z-20 cursor-pointer group pr-2"
                   style={{
                     left: `${node.x - 19}px`,
                     top: `${node.y}px`,
-                    transform: 'translateY(-50%)'
+                    transform: 'translateY(-50%)',
+                    right: '6px'
                   }}
                 >
                   {/* Disc */}
-                  <div className="w-[38px] h-[38px] rounded-full bg-white shadow-md border border-slate-200 flex items-center justify-center shrink-0">
+                  <div className={`w-[38px] h-[38px] rounded-full bg-white shadow-md border flex items-center justify-center shrink-0 transition-all duration-300 ${
+                    isActive 
+                      ? 'border-blue-400 ring-2 ring-blue-400/30 scale-105 shadow-blue-500/20' 
+                      : 'border-slate-200 shadow-[0_4px_12px_rgba(14,7,37,0.08)]'
+                  }`}>
                     <span className="text-xs font-black text-[#2563EB]">{pillar.num}</span>
                   </div>
 
                   {/* Horizontal Arrow */}
                   <div className="flex items-center px-1 shrink-0">
-                    <div className="h-[1px] w-3.5 bg-slate-400" />
-                    <svg className="w-2 h-2 -ml-0.5 text-slate-400 fill-slate-400" viewBox="0 0 6 6">
+                    <div className={`h-[1px] w-3 transition-colors ${isActive ? 'bg-[#2563EB]' : 'bg-slate-400'}`} />
+                    <svg className={`w-2 h-2 -ml-0.5 transition-colors ${isActive ? 'text-[#2563EB] fill-[#2563EB]' : 'text-slate-400 fill-slate-400'}`} viewBox="0 0 6 6">
                       <path d="M 0 0.8 L 5 3 L 0 5.2 Z" />
                     </svg>
                   </div>
 
-                  {/* Icon + Text */}
-                  <div className="flex items-center gap-2 max-w-[210px]">
-                    <div className="w-7 h-7 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0 border border-blue-100 [&>svg]:w-3.5 [&>svg]:h-3.5">
-                      {pillar.icon}
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-bold text-[#0E0725] leading-tight mb-0.5">{pillar.title}</h4>
-                      <p className="text-[10px] text-slate-500 leading-tight">{pillar.desc}</p>
-                    </div>
+                  {/* Icon */}
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-300 mr-2.5 ${
+                    isActive
+                      ? 'bg-[#2563EB] text-white border-blue-500 shadow-md shadow-blue-500/25 scale-105'
+                      : 'bg-blue-50 text-[#2563EB] border-blue-100 shadow-2xs'
+                  } [&>svg]:w-4 [&>svg]:h-4`}>
+                    {pillar.icon}
+                  </div>
+
+                  {/* Text Container: Full remaining width, never truncated or overlapped */}
+                  <div className="flex-1 min-w-0">
+                    <h4 className={`text-xs sm:text-[13px] font-bold leading-snug mb-0.5 transition-colors ${
+                      isActive ? 'text-[#2563EB]' : 'text-[#0E0725]'
+                    }`}>
+                      {pillar.title}
+                    </h4>
+                    <p className="text-[10.5px] sm:text-[11px] text-slate-500 leading-snug line-clamp-2">
+                      {pillar.desc}
+                    </p>
                   </div>
                 </div>
               );

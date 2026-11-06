@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   UtensilsCrossed,
   Truck,
@@ -6,12 +6,18 @@ import {
   Cpu,
   Layers,
   ArrowRight,
-  ExternalLink, 
   Globe, 
   CheckCircle2, 
-  X
+  X,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 import { metaPixel } from '../services/metaPixel';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
+
+interface SelectedWorkProps {
+  onOpenEnquiry?: (service?: string) => void;
+}
 
 interface ProjectItem {
   id: string;
@@ -49,9 +55,51 @@ interface ProjectItem {
   icon: React.ReactNode;
 }
 
-export const SelectedWork: React.FC = () => {
+export const SelectedWork: React.FC<SelectedWorkProps> = ({ onOpenEnquiry }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeModalProject, setActiveModalProject] = useState<ProjectItem | null>(null);
+  const [mobileProjectIndex, setMobileProjectIndex] = useState<number>(0);
+  const [isMobilePaused, setIsMobilePaused] = useState<boolean>(false);
+
+  const getServiceForProject = (category: string): string => {
+    switch (category) {
+      case 'web':
+        return 'Website Development';
+      case 'edtech':
+        return 'LMS';
+      case 'logistics':
+        return 'ERP';
+      case 'manufacturing':
+        return 'Web Application';
+      case 'creative':
+        return 'Website Development';
+      default:
+        return 'Website Development';
+    }
+  };
+
+  // Lock background scroll when case-study modal is open
+  useEffect(() => {
+    if (!activeModalProject) return;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveModalProject(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeModalProject]);
 
   const projects: ProjectItem[] = [
     {
@@ -301,10 +349,26 @@ export const SelectedWork: React.FC = () => {
     return projects.filter(p => p.category === selectedCategory);
   }, [selectedCategory, projects]);
 
-  const handleOpenLive = (title: string, url: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    metaPixel.trackViewContent(title, 'Selected Case Studies Live Click');
-    window.open(url, '_blank', 'noopener,noreferrer');
+  // Auto-slide every 3 seconds on mobile view
+  useEffect(() => {
+    if (isMobilePaused || activeModalProject || filteredProjects.length === 0) return;
+    const timer = setInterval(() => {
+      setMobileProjectIndex((prev) => (prev + 1) % filteredProjects.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isMobilePaused, activeModalProject, filteredProjects.length]);
+
+  // Reset mobile index if category filter changes
+  useEffect(() => {
+    setMobileProjectIndex(0);
+  }, [selectedCategory]);
+
+  const nextMobileProject = () => {
+    setMobileProjectIndex((prev) => (prev + 1) % filteredProjects.length);
+  };
+
+  const prevMobileProject = () => {
+    setMobileProjectIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
   };
 
   const categories = [
@@ -318,6 +382,9 @@ export const SelectedWork: React.FC = () => {
 
   return (
     <section id="work" className="relative py-10 sm:py-14 lg:py-16 bg-[#FAFAFC] overflow-hidden">
+      
+      {/* Dynamic Animated Flowing Neon Lines (Horizontal Right-to-Left - Hero background continuity) */}
+      <FlowingBackgroundRibbon idPrefix="work" variant="horizontal-mid" opacity={0.65} />
       
       {/* Background Ambient Elements */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-gradient-to-tr from-purple-100/35 via-blue-50/20 to-transparent rounded-full blur-[120px] pointer-events-none -z-10" />
@@ -338,7 +405,7 @@ export const SelectedWork: React.FC = () => {
             </h2>
           </div>
           <p className="text-slate-500 text-sm sm:text-base max-w-md font-normal leading-relaxed">
-            Hover each platform card for a quick overview, or click to explore the complete technical case study and architecture brief.
+            Explore each platform for a quick overview, or click to explore the complete technical case study and architecture brief.
           </p>
         </div>
 
@@ -362,8 +429,172 @@ export const SelectedWork: React.FC = () => {
           })}
         </div>
 
-        {/* 3x2 Interactive Wavy Fluid Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* ======================================================== */}
+        {/* MOBILE 1-CARD CAROUSEL (AUTO-SLIDES EVERY 3S + ARROWS)   */}
+        {/* ("hover animation active on the currently visible card")  */}
+        {/* ======================================================== */}
+        <div 
+          className="md:hidden relative pb-4"
+          onTouchStart={() => setIsMobilePaused(true)}
+          onTouchEnd={() => setIsMobilePaused(false)}
+        >
+          {/* Slider Container showing 1 card at a time */}
+          <div className="relative overflow-hidden px-1 pt-2 pb-2">
+            <div 
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${mobileProjectIndex * 100}%)` }}
+            >
+              {filteredProjects.map((project, idx) => {
+                const isActive = idx === mobileProjectIndex;
+                return (
+                  <div key={project.id} className="w-full shrink-0 px-2">
+                    <div
+                      onClick={() => setActiveModalProject(project)}
+                      className={`relative bg-white rounded-[32px] border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.08)] h-[460px] overflow-hidden flex flex-col justify-between cursor-pointer transition-all duration-500 ${
+                        isActive ? '-translate-y-1 shadow-2xl' : ''
+                      }`}
+                    >
+                      {/* Top Mockup Showcase Stage */}
+                      <div className="relative w-full h-[255px] p-4 flex flex-col justify-between bg-gradient-to-b from-slate-50/60 via-white to-slate-50/30 overflow-hidden">
+                        {/* Top Metadata Pills */}
+                        <div className="relative z-20 flex items-center justify-between gap-2">
+                          <span className={`text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md shadow-xs border border-slate-200/80 ${project.theme.textColor}`}>
+                            Client {project.num}
+                          </span>
+                          <span className="text-[10px] font-mono font-medium text-slate-600 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-xs border border-slate-200/80 flex items-center gap-1.5 truncate max-w-[190px]">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                            <span className="truncate">{project.tagline}</span>
+                          </span>
+                        </div>
+
+                        {/* Centered Device Mockup Image */}
+                        <div className="relative z-10 w-full flex-1 flex items-center justify-center py-1">
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className={`max-h-[175px] w-auto max-w-[94%] object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.12)] transition-transform duration-500 ${
+                              isActive ? 'scale-105' : ''
+                            }`}
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+
+                      {/* The Rising Liquid Wave Container: On Mobile, if isActive, the wave rises (h-[82%]) and reveals explanation! */}
+                      <div 
+                        className={`absolute inset-x-0 bottom-0 transition-all duration-500 ease-out flex flex-col justify-between z-20 ${
+                          isActive ? 'h-[82%]' : 'h-[46%]'
+                        }`}
+                        style={{ background: project.theme.gradient }}
+                      >
+                        {/* Dual Layer Organic Wave SVG Header */}
+                        <div className="absolute -top-[35px] left-0 right-0 w-full h-[36px] pointer-events-none overflow-hidden">
+                          <svg className="w-full h-full" viewBox="0 0 400 40" preserveAspectRatio="none">
+                            <path d="M0,20 C120,5 240,32 400,12 L400,40 L0,40 Z" fill={project.theme.waveFill} opacity="0.35" />
+                            <path d="M0,28 C100,38 210,14 310,24 C350,28 380,22 400,18 L400,40 L0,40 Z" fill={project.theme.waveFill} />
+                          </svg>
+                        </div>
+
+                        {/* Content Inside the Fluid Wave */}
+                        <div className="px-6 py-5 relative z-10 flex flex-col justify-between h-full text-white">
+                          
+                          {/* When not active: unhovered summary */}
+                          {!isActive && (
+                            <div className="flex flex-col justify-between h-full">
+                              <div>
+                                <span className={`text-[10px] font-mono font-bold uppercase tracking-widest ${project.theme.subtextColor} block`}>
+                                  {project.categoryLabel}
+                                </span>
+                                <h3 className="text-xl font-black text-white tracking-tight mt-1 line-clamp-1">
+                                  {project.title}
+                                </h3>
+                              </div>
+
+                              <div className="flex items-center justify-between text-xs font-bold text-white pt-2 border-t border-white/20">
+                                <span className="tracking-wider uppercase text-[10px] font-mono opacity-90">
+                                  {project.theme.tags[0]}
+                                </span>
+                                <span className="tracking-wider uppercase text-[10px] font-mono opacity-90">
+                                  {project.theme.tags[1]}
+                                </span>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* When isActive: hover animation active! (Wave risen, full explanation + action button shown) */}
+                          {isActive && (
+                            <div className="flex flex-col justify-between h-full animate-in fade-in duration-300">
+                              <div>
+                                <span className={`text-[10px] font-bold uppercase tracking-widest ${project.theme.subtextColor} font-mono`}>
+                                  Client {project.num} &bull; {project.tagline}
+                                </span>
+                                <h4 className="text-xl font-black text-white tracking-tight mt-1 mb-2">
+                                  {project.title}
+                                </h4>
+                                <p className="text-xs text-white/95 leading-relaxed font-normal line-clamp-3">
+                                  {project.simpleExplanation}
+                                </p>
+                              </div>
+
+                              <div className="flex items-center justify-between pt-3 border-t border-white/25">
+                                <span className="text-xs font-semibold text-white/95">
+                                  Click for technical brief
+                                </span>
+                                <div className="w-8 h-8 rounded-full bg-white text-slate-900 flex items-center justify-center shadow-lg scale-110">
+                                  <ArrowRight className="w-4 h-4 stroke-[2.5]" style={{ color: project.theme.accentColor }} />
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mobile Arrows & Indicators Bar */}
+          <div className="flex items-center justify-between px-3 mt-4">
+            <button
+              onClick={prevMobileProject}
+              className="w-9 h-9 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm flex items-center justify-center active:scale-95 transition-all cursor-pointer"
+              aria-label="Previous project"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            {/* Dots */}
+            <div className="flex items-center gap-1.5">
+              {filteredProjects.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setMobileProjectIndex(i)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === mobileProjectIndex ? 'w-6 bg-[#6842C2]' : 'w-1.5 bg-slate-200'
+                  }`}
+                  aria-label={`Go to project ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={nextMobileProject}
+              className="w-9 h-9 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm flex items-center justify-center active:scale-95 transition-all cursor-pointer"
+              aria-label="Next project"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* DESKTOP 3x2 INTERACTIVE WAVY FLUID CARDS GRID            */}
+        {/* ======================================================== */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
@@ -378,9 +609,9 @@ export const SelectedWork: React.FC = () => {
                   <span className={`text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md shadow-xs border border-slate-200/80 ${project.theme.textColor}`}>
                     Client {project.num}
                   </span>
-                  <span className="text-[10px] font-mono font-medium text-slate-500 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-xs border border-slate-200/80 flex items-center gap-1.5 truncate max-w-[190px]">
-                    <Globe className="w-3 h-3 text-slate-400 shrink-0" />
-                    <span className="truncate">{project.domain}</span>
+                  <span className="text-[10px] font-mono font-medium text-slate-600 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-xs border border-slate-200/80 flex items-center gap-1.5 truncate max-w-[190px]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="truncate">{project.tagline}</span>
                   </span>
                 </div>
 
@@ -475,11 +706,19 @@ export const SelectedWork: React.FC = () => {
       {/* ======================================================== */}
       {activeModalProject && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-200 overscroll-contain"
           onClick={() => setActiveModalProject(null)}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
+          onWheel={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
+          role="dialog"
+          aria-modal="true"
         >
           <div 
-            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all duration-300 scale-100 max-h-[92vh] flex flex-col"
+            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all duration-300 scale-100 max-h-[92vh] flex flex-col overscroll-contain"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -504,9 +743,8 @@ export const SelectedWork: React.FC = () => {
               <h3 className="text-xl sm:text-2xl font-black text-[#0E0725] tracking-tight mb-1">
                 {activeModalProject.title}
               </h3>
-              <p className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
-                <Globe className="w-3.5 h-3.5 text-slate-400" />
-                https://{activeModalProject.domain}
+              <p className="text-xs font-semibold text-[#6842C2] flex items-center gap-1.5">
+                <span>{activeModalProject.tagline}</span>
               </p>
             </div>
 
@@ -613,14 +851,21 @@ export const SelectedWork: React.FC = () => {
             {/* Modal Action Footer */}
             <div className="p-4 sm:p-6 border-t border-slate-100 bg-slate-50/50 flex items-center justify-between gap-4">
               <span className="text-xs text-slate-500 font-medium hidden sm:inline-block">
-                Production platform active and serving commercial users.
+                Production architecture engineered by Uyar Technologies.
               </span>
               <button
-                onClick={(e) => handleOpenLive(activeModalProject.title, activeModalProject.url, e)}
+                onClick={() => {
+                  const service = getServiceForProject(activeModalProject.category);
+                  metaPixel.trackViewContent(activeModalProject.title, 'Selected Case Studies Inquire');
+                  setActiveModalProject(null);
+                  if (onOpenEnquiry) {
+                    onOpenEnquiry(service);
+                  }
+                }}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#6842C2] hover:bg-[#522F9E] text-white px-6 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md shadow-purple-900/15 cursor-pointer uppercase tracking-wider"
               >
-                <span>Visit Live Platform</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Start Your Project</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
 

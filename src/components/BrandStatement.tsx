@@ -1,10 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
 
 export const BrandStatement: React.FC = () => {
   return (
     <section className="py-10 sm:py-14 lg:py-16 bg-[#171717] text-white relative overflow-hidden">
+      {/* Dynamic Animated Flowing Neon Lines (Hero background continuity - Dark glow) */}
+      <FlowingBackgroundRibbon idPrefix="brand" variant="dark-glow" opacity={0.85} />
       {/* Subtle geometric line pattern */}
       <div 
         className="absolute inset-0 opacity-10 pointer-events-none"

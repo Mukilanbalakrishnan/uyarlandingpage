@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
-import logoIcon from '../assets/uyar-logoonly-removebg-preview.png';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import brandLogo from '../assets/uyar-horizontal-removebg-preview.png';
 
 interface NavbarProps {
   onStartProject: () => void;
+  onContact?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onStartProject }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onStartProject, onContact }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
@@ -39,29 +40,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject }) => {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between">
           
-          {/* Logo with Stylized U + Uyar Technologies */}
+          {/* Official Brand Logo */}
           <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               scrollTo('home', 'home');
             }}
-            className="flex items-center gap-2.5 group cursor-pointer"
+            className="flex items-center group cursor-pointer"
             aria-label="Uyar Technologies"
           >
             <img
-              src={logoIcon}
-              alt="Uyar Logo"
-              className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              src={brandLogo}
+              alt="Uyar Technologies"
+              className="h-10 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="flex flex-col leading-tight">
-              <span className="text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-purple-900 transition-colors">
-                Uyar
-              </span>
-              <span className="text-[10px] font-semibold text-slate-500 tracking-wider -mt-0.5">
-                Technologies
-              </span>
-            </div>
           </a>
 
           {/* Desktop Navigation Links */}
@@ -80,12 +73,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject }) => {
 
             <button
               onClick={() => scrollTo('services', 'services')}
-              className={`flex items-center gap-1 py-1 transition-colors cursor-pointer ${
+              className={`py-1 transition-colors cursor-pointer ${
                 activeTab === 'services' ? 'text-purple-700 font-bold' : 'hover:text-purple-700'
               }`}
             >
-              <span>Services</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+              Services
             </button>
 
             <button
@@ -98,6 +90,24 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject }) => {
             </button>
 
             <button
+              onClick={() => scrollTo('testimonials', 'reviews')}
+              className={`py-1 transition-colors cursor-pointer ${
+                activeTab === 'reviews' ? 'text-purple-700 font-bold' : 'hover:text-purple-700'
+              }`}
+            >
+              Reviews
+            </button>
+
+            <button
+              onClick={() => scrollTo('videos', 'videos')}
+              className={`py-1 transition-colors cursor-pointer ${
+                activeTab === 'videos' ? 'text-purple-700 font-bold' : 'hover:text-purple-700'
+              }`}
+            >
+              Videos
+            </button>
+
+            <button
               onClick={() => scrollTo('about', 'about')}
               className={`py-1 transition-colors cursor-pointer ${
                 activeTab === 'about' ? 'text-purple-700 font-bold' : 'hover:text-purple-700'
@@ -107,7 +117,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject }) => {
             </button>
 
             <button
-              onClick={() => scrollTo('enquiry-form', 'contact')}
+              onClick={() => {
+                setActiveTab('contact');
+                if (onContact) {
+                  onContact();
+                } else {
+                  onStartProject();
+                }
+              }}
               className={`py-1 transition-colors cursor-pointer ${
                 activeTab === 'contact' ? 'text-purple-700 font-bold' : 'hover:text-purple-700'
               }`}
@@ -164,13 +181,33 @@ export const Navbar: React.FC<NavbarProps> = ({ onStartProject }) => {
               Our Work
             </button>
             <button
+              onClick={() => scrollTo('testimonials', 'reviews')}
+              className="text-left py-2 border-b border-slate-100 hover:text-purple-700"
+            >
+              Reviews
+            </button>
+            <button
+              onClick={() => scrollTo('videos', 'videos')}
+              className="text-left py-2 border-b border-slate-100 hover:text-purple-700"
+            >
+              Videos
+            </button>
+            <button
               onClick={() => scrollTo('about', 'about')}
               className="text-left py-2 border-b border-slate-100 hover:text-purple-700"
             >
               About Us
             </button>
             <button
-              onClick={() => scrollTo('enquiry-form', 'contact')}
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setActiveTab('contact');
+                if (onContact) {
+                  onContact();
+                } else {
+                  onStartProject();
+                }
+              }}
               className="text-left py-2 border-b border-slate-100 hover:text-purple-700"
             >
               Contact

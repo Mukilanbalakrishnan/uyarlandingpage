@@ -2,7 +2,11 @@ import React from 'react';
 import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 import logoImg from '../assets/uyar-horizontal-removebg-preview.png';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenEnquiry?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenEnquiry }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -114,8 +118,22 @@ export const Footer: React.FC = () => {
                 </button>
               </li>
               <li>
-                <button onClick={() => scrollTo('enquiry-form')} className="hover:text-white transition-colors cursor-pointer">
-                  Enquiry Form
+                <button onClick={() => scrollTo('videos')} className="hover:text-white transition-colors cursor-pointer">
+                  Featured Videos
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => {
+                    if (onOpenEnquiry) {
+                      onOpenEnquiry();
+                    } else {
+                      scrollTo('home');
+                    }
+                  }} 
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
+                  Start Project Enquiry
                 </button>
               </li>
             </ul>

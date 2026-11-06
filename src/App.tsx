@@ -8,28 +8,32 @@ import { SelectedWork } from './components/SelectedWork';
 import { WhyUyar } from './components/WhyUyar';
 import { DevelopmentJourney } from './components/DevelopmentJourney';
 import { Testimonials } from './components/Testimonials';
+import { VideosSection } from './components/VideosSection';
 import { AboutUs } from './components/AboutUs';
-import { EnquirySection } from './components/EnquirySection';
 import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
+import { EnquiryModal } from './components/EnquiryModal';
 import { metaPixel } from './services/metaPixel';
 
 export function App() {
   const [selectedService, setSelectedService] = useState<string>('Website Development');
+  // Enquiry form pop-up opens first upon entering the site
+  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(true);
 
   useEffect(() => {
     // Initialize Meta Pixel tracking once on app mount
     metaPixel.init();
   }, []);
 
-  const scrollToEnquiryForm = (service?: string) => {
+  const openEnquiryModal = (service?: string) => {
     if (service) {
       setSelectedService(service);
     }
-    const element = document.getElementById('enquiry-form');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    setIsEnquiryModalOpen(true);
+  };
+
+  const closeEnquiryModal = () => {
+    setIsEnquiryModalOpen(false);
   };
 
   const scrollToWork = () => {
@@ -42,27 +46,30 @@ export function App() {
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#171717] flex flex-col font-sans selection:bg-[#6842C2] selection:text-white">
       {/* SECTION 01: Sticky Navigation Bar */}
-      <Navbar onStartProject={() => scrollToEnquiryForm()} />
+      <Navbar 
+        onStartProject={() => openEnquiryModal()} 
+        onContact={() => openEnquiryModal()}
+      />
 
       <main className="flex-grow">
         {/* SECTION 02: Impressive Hero Experience with Layered Software Products */}
         <Hero
-          onBuildProject={() => scrollToEnquiryForm()}
+          onBuildProject={() => openEnquiryModal()}
           onExploreWork={scrollToWork}
-          onSelectService={(service) => scrollToEnquiryForm(service)}
+          onSelectService={(service) => openEnquiryModal(service)}
         />
 
         {/* SECTION 03: Immediate Trust Conversion Bar */}
         <ConversionBar />
 
         {/* SECTION 04: Editorial Asymmetric 12-Column Services Grid */}
-        <Services onSelectService={(service) => scrollToEnquiryForm(service)} />
+        <Services onSelectService={(service) => openEnquiryModal(service)} />
 
         {/* SECTION 05: Visual Break - Large Editorial Brand Statement */}
         <BrandStatement />
 
         {/* SECTION 06: Selected Work - Alternating Case-Study Showcase */}
-        <SelectedWork />
+        <SelectedWork onOpenEnquiry={openEnquiryModal} />
 
         {/* SECTION 07: Why Uyar - Two-Column Distinctive Trust Section */}
         <WhyUyar />
@@ -73,18 +80,25 @@ export function App() {
         {/* SECTION 09: Testimonials - Verified Social Proof */}
         <Testimonials />
 
-        {/* SECTION 10: About Us - Purpose & IDEA Lab Hub */}
-        <AboutUs onWorkTogether={() => scrollToEnquiryForm()} />
+        {/* SECTION 10: Videos - Instagram Ratio (9:16) Reels & Product Demos */}
+        <VideosSection onOpenEnquiry={openEnquiryModal} />
 
-        {/* SECTION 11: High-Conversion Split-Screen Enquiry Form */}
-        <EnquirySection selectedService={selectedService} />
+        {/* SECTION 11: About Us - Purpose & IDEA Lab Hub */}
+        <AboutUs onWorkTogether={() => openEnquiryModal()} />
 
-        {/* SECTION 12: Final Conversion Section */}
-        <FinalCTA onStartProject={() => scrollToEnquiryForm()} />
+        {/* SECTION 11: Final Conversion Section */}
+        <FinalCTA onStartProject={() => openEnquiryModal()} />
       </main>
 
-      {/* SECTION 13: Minimalist Enterprise Footer */}
-      <Footer />
+      {/* SECTION 12: Minimalist Enterprise Footer */}
+      <Footer onOpenEnquiry={() => openEnquiryModal()} />
+
+      {/* High-Conversion Pop-up Enquiry Modal */}
+      <EnquiryModal 
+        isOpen={isEnquiryModalOpen} 
+        onClose={closeEnquiryModal} 
+        initialService={selectedService} 
+      />
     </div>
   );
 }

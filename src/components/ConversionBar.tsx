@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
 import { 
   Search, 
   Users, 
@@ -60,6 +61,9 @@ export const ConversionBar: React.FC = () => {
 
   return (
     <section id="process" className="pt-6 sm:pt-8 lg:pt-10 pb-8 sm:pb-10 lg:pb-12 bg-[#FCFCFD] border-t border-slate-100 relative z-20 overflow-hidden">
+      
+      {/* Dynamic Animated Flowing Neon Lines (Horizontal Right-to-Left - Hero background continuity) */}
+      <FlowingBackgroundRibbon idPrefix="process" variant="horizontal-mid" opacity={0.65} />
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 right-0 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-purple-200/20 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Maximize2, X, Info } from 'lucide-react';
+import { FlowingBackgroundRibbon } from './FlowingBackgroundRibbon';
 
 interface ScreenshotItem {
   id: number;
@@ -16,6 +17,8 @@ interface ScreenshotItem {
 
 export const Testimonials: React.FC = () => {
   const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
+  const [mobileIndex, setMobileIndex] = useState<number>(0);
+  const [isMobilePaused, setIsMobilePaused] = useState<boolean>(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -89,6 +92,38 @@ export const Testimonials: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Auto-slide every 3 seconds on mobile view
+  useEffect(() => {
+    if (isMobilePaused || activeModalIndex !== null) return;
+    const timer = setInterval(() => {
+      setMobileIndex((prev) => (prev + 1) % screenshots.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [isMobilePaused, activeModalIndex, screenshots.length]);
+
+  const nextMobile = () => {
+    setMobileIndex((prev) => (prev + 1) % screenshots.length);
+  };
+
+  const prevMobile = () => {
+    setMobileIndex((prev) => (prev - 1 + screenshots.length) % screenshots.length);
+  };
+
+  // Lock background scroll when zoom modal is open
+  useEffect(() => {
+    if (activeModalIndex === null) return;
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+    };
+  }, [activeModalIndex]);
+
   // Keyboard navigation for modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -116,7 +151,10 @@ export const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id="testimonials" className="py-8 sm:py-10 lg:py-12 bg-[#FAFAFA] relative border-b border-[#EAEAE6] overflow-hidden">
+    <section id="testimonials" className="py-8 sm:py-10 lg:py-12 bg-[#FAFAFA] relative overflow-hidden">
+      
+      {/* Dynamic Animated Flowing Neon Lines (Horizontal Right-to-Left - Hero background continuity) */}
+      <FlowingBackgroundRibbon idPrefix="testimonials" variant="horizontal-mid" opacity={0.65} />
       
       {/* Background Animated Liquid Ambient Blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
@@ -146,8 +184,123 @@ export const Testimonials: React.FC = () => {
           </p>
         </div>
 
-        {/* Smartphone Carousel Section */}
-        <div className="relative group/carousel">
+        {/* ======================================================== */}
+        {/* MOBILE 1-CARD CAROUSEL (AUTO-SLIDES EVERY 3S + ARROWS)   */}
+        {/* ("hover animation active on the currently visible card")  */}
+        {/* ======================================================== */}
+        <div 
+          className="md:hidden relative pt-6 pb-2"
+          onTouchStart={() => setIsMobilePaused(true)}
+          onTouchEnd={() => setIsMobilePaused(false)}
+        >
+          <div className="relative overflow-hidden px-2 pt-10 pb-4">
+            <div 
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${mobileIndex * 100}%)` }}
+            >
+              {screenshots.map((item, idx) => {
+                const isActive = idx === mobileIndex;
+                return (
+                  <div key={item.id} className="w-full shrink-0 flex justify-center px-4">
+                    <div
+                      onClick={() => setActiveModalIndex(idx)}
+                      className="relative cursor-pointer select-none"
+                    >
+                      {/* Ambient Soft Glow Blob */}
+                      <div
+                        className={`absolute -top-6 left-0 right-0 h-48 ${item.blobGlow} rounded-[48px] blur-xl transition-opacity duration-500 -z-10 pointer-events-none ${
+                          isActive ? 'opacity-70' : 'opacity-30'
+                        }`}
+                      />
+
+                      {/* Organic Asymmetrical Blob Backdrop */}
+                      <div
+                        className={`absolute ${item.blobShape} bg-gradient-to-b ${item.gradient} transition-all duration-500 ease-out z-0 ${
+                          isActive ? 'scale-[1.04] -top-12' : ''
+                        }`}
+                      >
+                        <div className="absolute top-2 left-6 right-6 h-10 bg-white/20 rounded-full blur-sm pointer-events-none" />
+                      </div>
+
+                      {/* Smartphone Mockup */}
+                      <div className={`relative z-10 w-[230px] h-[460px] bg-slate-900 rounded-[34px] border-[5px] border-white shadow-xl overflow-hidden flex flex-col transition-all duration-500 ${
+                        isActive ? '-translate-y-2 shadow-2xl' : ''
+                      }`}>
+                        {/* Top Speaker Ear-piece */}
+                        <div className="absolute top-1.5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-20 pointer-events-none">
+                          <div className="w-10 h-1 bg-slate-700/80 rounded-full" />
+                          <div className="w-1.5 h-1.5 bg-slate-800 rounded-full border border-slate-700/60" />
+                        </div>
+
+                        {/* Screenshot Image Screen */}
+                        <div className="w-full h-full rounded-[24px] overflow-hidden bg-slate-950 relative">
+                          <img
+                            src={item.screenImg}
+                            alt={item.title}
+                            className={`w-full h-full object-cover object-top transition-transform duration-500 ease-out ${
+                              isActive ? 'scale-105' : ''
+                            }`}
+                            loading="lazy"
+                          />
+
+                          {/* Hover/Active Overlay with View Prompt */}
+                          <div className={`absolute inset-0 bg-black/40 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px] ${
+                            isActive ? 'opacity-100' : 'opacity-0'
+                          }`}>
+                            <div className={`px-3.5 py-1.5 rounded-full bg-white/95 text-slate-900 text-xs font-semibold shadow-lg flex items-center gap-1.5 transform transition-transform duration-300 ${
+                              isActive ? 'scale-100' : 'scale-90'
+                            }`}>
+                              <Maximize2 className="w-3.5 h-3.5 text-[#6842C2]" />
+                              <span>View Full Screen</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mobile Arrows & Indicators */}
+          <div className="flex items-center justify-between px-6 mt-3">
+            <button
+              onClick={prevMobile}
+              className="w-9 h-9 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm flex items-center justify-center active:scale-95 transition-all cursor-pointer"
+              aria-label="Previous review"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              {screenshots.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setMobileIndex(i)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    i === mobileIndex ? 'w-6 bg-[#6842C2]' : 'w-1.5 bg-slate-200'
+                  }`}
+                  aria-label={`Go to review ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={nextMobile}
+              className="w-9 h-9 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm flex items-center justify-center active:scale-95 transition-all cursor-pointer"
+              aria-label="Next review"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* DESKTOP CAROUSEL TRACK                                    */}
+        {/* ======================================================== */}
+        <div className="hidden md:block relative group/carousel">
           
           {/* Left Arrow Button (Mobile/Tablet only) */}
           <button
@@ -234,17 +387,6 @@ export const Testimonials: React.FC = () => {
 
         </div>
 
-        {/* Bottom Instruction Pill matching Reference */}
-        <div className="flex justify-center mt-6 sm:mt-8">
-          <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/95 backdrop-blur-sm border border-slate-200/90 shadow-xs text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 hover:border-[#6842C2]/40 transition-all duration-200">
-            {/* Target icon matching reference */}
-            <span className="w-4 h-4 rounded-full border-2 border-blue-600 flex items-center justify-center shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-            </span>
-            <span>Click on any screenshot to view the full resolution chat &amp; verified offer letter</span>
-          </div>
-        </div>
-
       </div>
 
       {/* Lightbox / Zoom Modal */}
@@ -252,12 +394,18 @@ export const Testimonials: React.FC = () => {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200 overscroll-contain"
           onClick={() => setActiveModalIndex(null)}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
+          onWheel={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
         >
           {/* Modal Container */}
           <div
-            className="relative max-w-lg w-full max-h-[92vh] bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+            className="relative max-w-lg w-full max-h-[92vh] bg-slate-900 border border-slate-700/80 rounded-3xl shadow-2xl overflow-hidden flex flex-col overscroll-contain"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
