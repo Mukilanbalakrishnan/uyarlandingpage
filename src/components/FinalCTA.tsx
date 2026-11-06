@@ -7,7 +7,7 @@ interface FinalCTAProps {
 
 export const FinalCTA: React.FC<FinalCTAProps> = ({ onStartProject }) => {
   return (
-    <section className="py-24 sm:py-32 bg-[#171717] text-white relative overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-[#171717] text-white relative overflow-hidden">
       {/* Subtle architectural dot grid */}
       <div 
         className="absolute inset-0 opacity-10 pointer-events-none"
@@ -22,17 +22,17 @@ export const FinalCTA: React.FC<FinalCTAProps> = ({ onStartProject }) => {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         
-        <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#EEE8FA] bg-white/10 px-3.5 py-1 rounded-full mb-8 inline-block border border-white/10 backdrop-blur-sm">
+        <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#EEE8FA] bg-white/10 px-3.5 py-1 rounded-full mb-5 inline-block border border-white/10 backdrop-blur-sm">
           READY TO ELEVATE YOUR TECH?
         </span>
 
         {/* Oversized Typography */}
-        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 uppercase leading-[1.04]">
+        <h2 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-4 uppercase leading-[1.04]">
           Ready To Build<br />
           <span className="text-[#EEE8FA]">What's Next?</span>
         </h2>
 
-        <p className="text-base sm:text-xl text-white/70 max-w-xl mx-auto mb-10 font-normal leading-relaxed">
+        <p className="text-base sm:text-xl text-white/70 max-w-xl mx-auto mb-6 sm:mb-8 font-normal leading-relaxed">
           Let's turn your next big idea into a digital reality.
         </p>
 

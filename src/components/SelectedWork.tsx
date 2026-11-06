@@ -5,7 +5,6 @@ import {
   GraduationCap,
   Cpu,
   Layers,
-  Camera,
   ArrowRight,
   ExternalLink, 
   Globe, 
@@ -18,6 +17,7 @@ interface ProjectItem {
   id: string;
   num: string;
   title: string;
+  image: string;
   category: 'all' | 'web' | 'edtech' | 'logistics' | 'manufacturing' | 'creative';
   categoryLabel: string;
   tagline: string;
@@ -58,6 +58,7 @@ export const SelectedWork: React.FC = () => {
       id: 'sk-catering',
       num: '01',
       title: 'SK Catering Services',
+      image: '/projects/project-sk-catering.png',
       category: 'web',
       categoryLabel: 'Hospitality & Food Tech',
       tagline: 'Catering & Event Platform',
@@ -97,6 +98,7 @@ export const SelectedWork: React.FC = () => {
       id: 'oneroute-india',
       num: '02',
       title: 'OneRoute India Logistics',
+      image: '/projects/project-oneroute-india.png',
       category: 'logistics',
       categoryLabel: 'Logistics & Supply Chain',
       tagline: 'Fleet Transportation Platform',
@@ -136,6 +138,7 @@ export const SelectedWork: React.FC = () => {
       id: 'master-mind',
       num: '03',
       title: 'Master Mind Learning',
+      image: '/projects/project-master-mind.png',
       category: 'edtech',
       categoryLabel: 'EdTech & Career LMS',
       tagline: 'Technical Training Platform',
@@ -175,6 +178,7 @@ export const SelectedWork: React.FC = () => {
       id: 'suknesh',
       num: '04',
       title: 'Suknesh Techcenter',
+      image: '/projects/project-suknesh.png',
       category: 'edtech',
       categoryLabel: 'Industrial Training & CAD/CAM',
       tagline: 'Industrial Engineering Portal',
@@ -214,6 +218,7 @@ export const SelectedWork: React.FC = () => {
       id: 'sri-sai',
       num: '05',
       title: 'Sri Sai Wire Netting',
+      image: '/projects/project-sri-sai.png',
       category: 'manufacturing',
       categoryLabel: 'Manufacturing & B2B Wholesale',
       tagline: 'Industrial Product Portal',
@@ -250,43 +255,44 @@ export const SelectedWork: React.FC = () => {
       icon: <Layers className="w-8 h-8" />
     },
     {
-      id: 'red-angle',
+      id: 'tamilnadu-shia',
       num: '06',
-      title: 'Red Angle Studio',
-      category: 'creative',
-      categoryLabel: 'Creative Studio & Photography',
-      tagline: 'Visual Storytelling Platform',
-      domain: 'redanglestudio.in',
-      url: 'https://redanglestudio.in',
-      simpleExplanation: 'Ultra-fast photography portfolio delivering progressive 4K media loading, client proofing & luxury shoot booking.',
-      overview: 'Red Angle Studio needed a high-fashion, minimalist digital showcase that renders high-resolution 4K media instantly without layout shifts or delays.',
-      problemSolved: 'Heavy photography portfolios typically suffer from slow load times and bandwidth bottlenecks on mobile devices, harming booking conversion.',
-      architectureSolution: 'Constructed a bespoke masonry retina portfolio using progressive image loading, WebP modern formats, and an elegant booking inquiry funnel.',
-      techStack: ['React.js', 'Tailwind CSS', 'High-Res Media CDN', 'Booking Workflow', 'Masonry Grid'],
+      title: 'Tamil Nadu Shia Muslim Jamaat',
+      image: '/projects/project-tamilnadu-shia.png',
+      category: 'web',
+      categoryLabel: 'Community Platform & Portal',
+      tagline: 'Community Organization Platform',
+      domain: 'tamilnadushiamuslimjamaat.in',
+      url: 'https://www.tamilnadushiamuslimjamaat.in',
+      simpleExplanation: 'Centralized community welfare portal delivering real-time announcements, event calendar, member directory & online contributions.',
+      overview: 'Tamil Nadu Shia Muslim Jamaat required a unified digital headquarters to connect community members across the state with official notices, social initiatives, and events.',
+      problemSolved: 'Community notices, event schedules, and charitable initiatives were previously distributed manually across fragmented messaging groups without a reliable verified hub.',
+      architectureSolution: 'Engineered an accessible, high-performance community platform with structured announcement feeds, prayer schedules, dynamic event galleries, and secure donation routing.',
+      techStack: ['React.js', 'Tailwind CSS', 'Fast CDN', 'Event Feed', 'Mobile First'],
       metrics: [
-        { label: 'Retina Media', value: '4K Gallery', color: 'text-purple-400' },
-        { label: 'Media CDN', value: 'Zero-Lag', color: 'text-emerald-400' },
-        { label: 'Mobile UX', value: '60 FPS Smooth', color: 'text-pink-400' },
+        { label: 'Community Hub', value: 'Live Portal', color: 'text-emerald-400' },
+        { label: 'Announcements', value: 'Real-Time', color: 'text-cyan-400' },
+        { label: 'Uptime', value: '99.9%', color: 'text-blue-400' },
       ],
       deliverables: [
-        'Zero-lag progressive high-resolution masonry gallery',
-        'Private client proofing and album review portal',
-        'Bespoke shoot consultation and calendar scheduler',
-        'Mobile swipe gestures for full-screen photography'
+        'Centralized community announcement and news pipeline',
+        'Event calendar, prayer timings and committee updates',
+        'High-resolution photo and social welfare activity gallery',
+        'Sub-second mobile loading with zero bandwidth delay'
       ],
-      systemStatus: 'High-Res Media',
+      systemStatus: 'Live Community',
       theme: {
-        accentColor: '#E11D48',
-        textColor: 'text-rose-600',
-        subtextColor: 'text-rose-200',
-        bgColor: 'bg-rose-50',
-        borderColor: 'border-rose-100/80',
-        hoverShadow: 'hover:shadow-[0_20px_45px_rgba(225,29,72,0.25)]',
-        gradient: 'linear-gradient(180deg, #E11D48 0%, #F43F5E 100%)',
-        waveFill: '#E11D48',
-        tags: ['CREATIVE STUDIO', '4K RETINA']
+        accentColor: '#059669',
+        textColor: 'text-emerald-600',
+        subtextColor: 'text-emerald-200',
+        bgColor: 'bg-emerald-50',
+        borderColor: 'border-emerald-100/80',
+        hoverShadow: 'hover:shadow-[0_20px_45px_rgba(5,150,105,0.25)]',
+        gradient: 'linear-gradient(180deg, #059669 0%, #10B981 100%)',
+        waveFill: '#059669',
+        tags: ['COMMUNITY PORTAL', '99.9% UPTIME']
       },
-      icon: <Camera className="w-8 h-8" />
+      icon: <Globe className="w-8 h-8" />
     }
   ];
 
@@ -311,7 +317,7 @@ export const SelectedWork: React.FC = () => {
   ];
 
   return (
-    <section id="work" className="relative py-24 sm:py-32 bg-[#FAFAFC] overflow-hidden">
+    <section id="work" className="relative py-10 sm:py-14 lg:py-16 bg-[#FAFAFC] overflow-hidden">
       
       {/* Background Ambient Elements */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-gradient-to-tr from-purple-100/35 via-blue-50/20 to-transparent rounded-full blur-[120px] pointer-events-none -z-10" />
@@ -319,7 +325,7 @@ export const SelectedWork: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 sm:mb-8 gap-4 sm:gap-6">
           <div className="max-w-2xl">
             <span className="inline-block text-[11px] font-black uppercase tracking-wider text-[#6842C2] bg-[#EEE8FA] px-3.5 py-1 rounded-full mb-3 border border-purple-100/60">
               PROVEN PRODUCTION WORK
@@ -337,7 +343,7 @@ export const SelectedWork: React.FC = () => {
         </div>
 
         {/* Category Filter Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
+        <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 sm:mb-8 no-scrollbar">
           {categories.map((cat) => {
             const isActive = selectedCategory === cat.id;
             return (
@@ -362,34 +368,40 @@ export const SelectedWork: React.FC = () => {
             <div
               key={project.id}
               onClick={() => setActiveModalProject(project)}
-              className={`group relative bg-white rounded-[32px] border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.04)] ${project.theme.hoverShadow} transition-all duration-500 hover:-translate-y-2 h-[440px] overflow-hidden flex flex-col justify-between cursor-pointer`}
+              className={`group relative bg-white rounded-[32px] border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.05)] ${project.theme.hoverShadow} transition-all duration-500 hover:-translate-y-2 h-[460px] overflow-hidden flex flex-col justify-between cursor-pointer`}
             >
               
-              {/* Top White Content (Icon + Unhovered Title) */}
-              <div className="pt-7 px-7 flex flex-col items-center text-center relative z-20 transition-all duration-500">
-                {/* Stylized Emblem Icon */}
-                <div className={`w-16 h-16 rounded-2xl ${project.theme.bgColor} border ${project.theme.borderColor} flex items-center justify-center ${project.theme.textColor} shadow-sm transition-all duration-500 group-hover:scale-95 group-hover:-translate-y-1`}>
-                  {project.icon}
+              {/* Top Mockup Showcase Stage */}
+              <div className="relative w-full h-[255px] p-4 flex flex-col justify-between bg-gradient-to-b from-slate-50/60 via-white to-slate-50/30 overflow-hidden">
+                {/* Top Metadata Pills */}
+                <div className="relative z-20 flex items-center justify-between gap-2">
+                  <span className={`text-[10px] font-mono font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md shadow-xs border border-slate-200/80 ${project.theme.textColor}`}>
+                    Client {project.num}
+                  </span>
+                  <span className="text-[10px] font-mono font-medium text-slate-500 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-full shadow-xs border border-slate-200/80 flex items-center gap-1.5 truncate max-w-[190px]">
+                    <Globe className="w-3 h-3 text-slate-400 shrink-0" />
+                    <span className="truncate">{project.domain}</span>
+                  </span>
                 </div>
 
-                {/* Unhovered Title (Fades smoothly on hover as wave rises) */}
-                <div className="mt-4 transition-all duration-300 group-hover:opacity-0 group-hover:pointer-events-none">
-                  <span className={`text-[10px] font-bold uppercase tracking-wider ${project.theme.textColor} font-mono block mb-1`}>
-                    Client {project.num} &bull; {project.categoryLabel}
-                  </span>
-                  <h3 className="text-xl font-black text-[#0E0725] tracking-tight">
-                    {project.title}
-                  </h3>
+                {/* Centered Device Mockup Image */}
+                <div className="relative z-10 w-full flex-1 flex items-center justify-center py-1">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="max-h-[175px] w-auto max-w-[94%] object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.12)] transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
               {/* The Rising Liquid Wave Container */}
               <div 
-                className="absolute inset-x-0 bottom-0 h-[40%] group-hover:h-[74%] transition-all duration-500 ease-out flex flex-col justify-between z-10"
+                className="absolute inset-x-0 bottom-0 h-[46%] group-hover:h-[82%] transition-all duration-500 ease-out flex flex-col justify-between z-20"
                 style={{ background: project.theme.gradient }}
               >
                 {/* Dual Layer Organic Wave SVG Header */}
-                <div className="absolute -top-[39px] left-0 right-0 w-full h-[40px] pointer-events-none overflow-hidden">
+                <div className="absolute -top-[35px] left-0 right-0 w-full h-[36px] pointer-events-none overflow-hidden">
                   <svg className="w-full h-full" viewBox="0 0 400 40" preserveAspectRatio="none">
                     {/* Layer 1: Translucent background liquid crest for depth */}
                     <path d="M0,20 C120,5 240,32 400,12 L400,40 L0,40 Z" fill={project.theme.waveFill} opacity="0.35" />
@@ -399,35 +411,46 @@ export const SelectedWork: React.FC = () => {
                 </div>
 
                 {/* Content Inside the Fluid Wave */}
-                <div className="p-6 sm:p-7 relative z-10 flex flex-col justify-between h-full text-white">
+                <div className="px-6 py-5 relative z-10 flex flex-col justify-between h-full text-white">
                   
-                  {/* Hovered Expanded View (Revealed when wave rises: "while hover it explain simple") */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 flex flex-col">
-                    <span className={`text-[10px] font-bold uppercase tracking-widest ${project.theme.subtextColor} font-mono`}>
-                      Client {project.num} &bull; {project.tagline}
-                    </span>
-                    <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight mt-0.5 mb-2">
-                      {project.title}
-                    </h4>
-                    <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-normal line-clamp-3">
-                      {project.simpleExplanation}
-                    </p>
-                  </div>
+                  {/* Default Unhovered State: Category, Title, and Tags */}
+                  <div className="flex flex-col justify-between h-full group-hover:hidden transition-all duration-300">
+                    <div>
+                      <span className={`text-[10px] font-mono font-bold uppercase tracking-widest ${project.theme.subtextColor} block`}>
+                        {project.categoryLabel}
+                      </span>
+                      <h3 className="text-xl font-black text-white tracking-tight mt-1 line-clamp-1">
+                        {project.title}
+                      </h3>
+                    </div>
 
-                  {/* Footer Action Area */}
-                  <div className="w-full">
-                    {/* Default Unhovered State: Dual Tags with Accent Underline */}
-                    <div className="flex items-center justify-between text-xs font-bold text-white group-hover:hidden transition-all duration-200">
-                      <span className="tracking-wider uppercase text-[11px] font-mono border-b-2 border-white/40 pb-0.5">
+                    {/* Tags */}
+                    <div className="flex items-center justify-between text-xs font-bold text-white pt-2 border-t border-white/20">
+                      <span className="tracking-wider uppercase text-[10px] font-mono opacity-90">
                         {project.theme.tags[0]}
                       </span>
-                      <span className="tracking-wider uppercase text-[11px] font-mono border-b-2 border-white/40 pb-0.5">
+                      <span className="tracking-wider uppercase text-[10px] font-mono opacity-90">
                         {project.theme.tags[1]}
                       </span>
                     </div>
+                  </div>
+
+                  {/* Hovered Expanded View (Revealed when wave rises: "while hover it explain simple") */}
+                  <div className="hidden group-hover:flex flex-col justify-between h-full animate-in fade-in duration-300">
+                    <div>
+                      <span className={`text-[10px] font-bold uppercase tracking-widest ${project.theme.subtextColor} font-mono`}>
+                        Client {project.num} &bull; {project.tagline}
+                      </span>
+                      <h4 className="text-xl sm:text-2xl font-black text-white tracking-tight mt-1 mb-2">
+                        {project.title}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-normal line-clamp-3">
+                        {project.simpleExplanation}
+                      </p>
+                    </div>
 
                     {/* Hovered State: Click For Full Case Study Action Bar */}
-                    <div className="hidden group-hover:flex items-center justify-between pt-2 border-t border-white/25">
+                    <div className="flex items-center justify-between pt-3 border-t border-white/25">
                       <span className="text-xs font-semibold text-white/95">
                         Click for technical brief
                       </span>
@@ -490,6 +513,15 @@ export const SelectedWork: React.FC = () => {
             {/* Modal Scrollable Body */}
             <div className="p-6 space-y-6 overflow-y-auto text-sm leading-relaxed text-slate-600">
               
+              {/* Product Mockup Showcase Banner */}
+              <div className="w-full rounded-2xl bg-gradient-to-b from-slate-50 to-slate-100/80 border border-slate-200/80 p-4 sm:p-6 flex items-center justify-center overflow-hidden">
+                <img
+                  src={activeModalProject.image}
+                  alt={activeModalProject.title}
+                  className="max-h-56 sm:max-h-64 w-auto object-contain drop-shadow-xl"
+                />
+              </div>
+
               {/* Executive Overview Brief */}
               <div>
                 <h4 className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-1">

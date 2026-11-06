@@ -151,7 +151,7 @@ export const EnquirySection: React.FC<{ selectedService?: string }> = ({ selecte
   };
 
   return (
-    <section id="enquiry-form" className="py-24 sm:py-32 bg-[#FAFAF8] relative scroll-mt-12 border-b border-[#EAEAE6]">
+    <section id="enquiry-form" className="py-10 sm:py-14 lg:py-16 bg-[#FAFAF8] relative scroll-mt-12 border-b border-[#EAEAE6]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Split-Screen Container */}

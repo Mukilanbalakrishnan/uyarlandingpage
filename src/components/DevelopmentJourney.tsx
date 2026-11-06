@@ -5,7 +5,8 @@ import {
   Puzzle, 
   Code2, 
   CheckCircle2, 
-  TrendingUp 
+  TrendingUp,
+  Sparkles
 } from 'lucide-react';
 
 interface JourneyStep {
@@ -28,15 +29,24 @@ interface JourneyStep {
 }
 
 export const DevelopmentJourney: React.FC = () => {
+  const stepPositions = [
+    { top: 30, left: 140, zIndex: 30 },
+    { top: 135, left: 275, zIndex: 28 },
+    { top: 240, left: 410, zIndex: 26 },
+    { top: 345, left: 545, zIndex: 24 },
+    { top: 450, left: 680, zIndex: 22 },
+    { top: 555, left: 815, zIndex: 20 },
+  ];
+
   const steps: JourneyStep[] = [
     {
       num: '01',
-      phase: 'PHASE 01 • DISCOVERY',
+      phase: 'PHASE 01',
       title: 'Deep Dive & Scope',
-      shortTitle: 'Scope',
+      shortTitle: 'Discover & Scope',
       tagline: 'Discovery Phase',
-      desc: 'Mapping business goals, user personas, commercial bottlenecks, and technical prerequisites.',
-      deliverable: 'Scope Spec & KPIs',
+      desc: 'Scope specs, user personas & measurable KPIs.',
+      deliverable: 'Scope & KPIs',
       theme: {
         accentColor: '#D99B00',
         darkBase: '#9E6F05',
@@ -49,11 +59,11 @@ export const DevelopmentJourney: React.FC = () => {
     },
     {
       num: '02',
-      phase: 'PHASE 02 • ARCHITECTURE',
+      phase: 'PHASE 02',
       title: 'Data Schema & Cloud',
-      shortTitle: 'Architect',
+      shortTitle: 'Data Schema & Cloud',
       tagline: 'System Architecture',
-      desc: 'Defining resilient microservices, secure API protocols, database schemas, and cloud models.',
+      desc: 'Microservices, DB schemas & cloud blueprints.',
       deliverable: 'Cloud Blueprint',
       theme: {
         accentColor: '#EA580C',
@@ -67,11 +77,11 @@ export const DevelopmentJourney: React.FC = () => {
     },
     {
       num: '03',
-      phase: 'PHASE 03 • PROTOTYPE',
-      title: 'Interactive Wireframes',
-      shortTitle: 'UI/UX',
+      phase: 'PHASE 03',
+      title: 'UI/UX Prototyping',
+      shortTitle: 'UI/UX Prototyping',
       tagline: 'UI/UX Experience',
-      desc: 'Crafting brand-aligned design systems, component libraries, and clickable interactive prototypes.',
+      desc: 'Design systems, UI kits & clickable Figma UX.',
       deliverable: 'Interactive Figma',
       theme: {
         accentColor: '#E11D48',
@@ -85,11 +95,11 @@ export const DevelopmentJourney: React.FC = () => {
     },
     {
       num: '04',
-      phase: 'PHASE 04 • SPRINT CODE',
+      phase: 'PHASE 04',
       title: 'Modular Engineering',
-      shortTitle: 'Code',
+      shortTitle: 'Modular Engineering',
       tagline: 'Full-Stack Code',
-      desc: 'Bi-weekly sprints, clean React & Node architecture, automated tests, and staging server reviews.',
+      desc: 'Clean code sprints & bi-weekly demo builds.',
       deliverable: 'Staging Access',
       theme: {
         accentColor: '#0284C7',
@@ -103,11 +113,11 @@ export const DevelopmentJourney: React.FC = () => {
     },
     {
       num: '05',
-      phase: 'PHASE 05 • RIGOROUS QA',
+      phase: 'PHASE 05',
       title: 'Zero-Downtime Deploy',
-      shortTitle: 'Deploy',
+      shortTitle: 'Zero-Downtime Deploy',
       tagline: 'QA & Launch',
-      desc: 'Multi-device regression testing, Core Web Vitals audit, and safe production deployment.',
+      desc: 'Multi-device QA tests & Web Vitals audit.',
       deliverable: 'Live QA Signoff',
       theme: {
         accentColor: '#65A30D',
@@ -121,11 +131,11 @@ export const DevelopmentJourney: React.FC = () => {
     },
     {
       num: '06',
-      phase: 'PHASE 06 • EVOLUTION',
-      title: 'SLA & Evolution',
-      shortTitle: 'Scale',
+      phase: 'PHASE 06',
+      title: 'Scale & SLA',
+      shortTitle: 'Scale & SLA',
       tagline: 'Scale & SLA',
-      desc: 'Continuous telemetry, performance monitoring, security patches, and dedicated engineering SLA.',
+      desc: 'Continuous telemetry & dedicated 24/7 SLA.',
       deliverable: '24/7 Production SLA',
       theme: {
         accentColor: '#059669',
@@ -140,7 +150,7 @@ export const DevelopmentJourney: React.FC = () => {
   ];
 
   return (
-    <section id="journey" className="py-20 sm:py-32 bg-[#FAFAFC] relative overflow-hidden">
+    <section id="journey" className="py-10 sm:py-12 lg:py-14 bg-[#FAFAFC] relative overflow-hidden">
       
       {/* Ambient background glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-amber-50/40 via-purple-50/30 to-transparent rounded-full blur-[120px] pointer-events-none -z-10" />
@@ -150,7 +160,7 @@ export const DevelopmentJourney: React.FC = () => {
         {/* ======================================================== */}
         {/* DESKTOP INFOGRAPHIC VIEW (Visible on lg+)                */}
         {/* ======================================================== */}
-        <div className="hidden lg:block relative min-h-[820px]">
+        <div className="hidden lg:block relative min-h-[770px]">
           
           {/* Top Right Header (Matches Infographic Template layout) */}
           <div className="absolute top-2 right-4 max-w-xl text-left z-20">
@@ -168,202 +178,123 @@ export const DevelopmentJourney: React.FC = () => {
             </p>
           </div>
 
-          {/* Diagonal Cascading Overlapping 3D Discs Container */}
-          <div className="relative w-full h-[760px]">
-
-            {/* STEP 01: Discover & Scope */}
-            <div className="absolute top-[80px] left-[10px] w-[200px] text-right z-30">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#D99B00] font-mono block mb-1">
-                01. DISCOVERY
-              </span>
-              <h4 className="text-base font-extrabold text-[#0E0725] mb-1">
-                Deep Dive & Scope
-              </h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Mapping business goals, user personas & technical prerequisites.
-              </p>
-              <span className="inline-block mt-2 text-[10px] font-mono text-[#D99B00] bg-amber-50 px-2.5 py-0.5 rounded-md border border-amber-200/60 font-bold">
-                Scope Spec & KPIs
-              </span>
-            </div>
-
-            <div className="absolute top-[40px] left-[225px] w-[165px] h-[165px] z-25 group cursor-pointer transition-transform duration-300 hover:scale-105">
-              <div className="absolute inset-0 rounded-full bg-[#9E6F05] translate-x-[-10px] translate-y-[8px] shadow-lg" />
-              <div className="absolute inset-0 rounded-full bg-[#E5A91A] translate-x-[-5px] translate-y-[4px]" />
-              <div className="absolute inset-0 rounded-full bg-white shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center p-4 text-center">
-                <div className="w-10 h-10 rounded-full bg-amber-50 text-[#D99B00] flex items-center justify-center mb-1">
-                  {steps[0].icon}
+          {/* Bottom-Left Methodology Highlights (Matches Reference Template) */}
+          <div className="absolute top-[370px] left-[20px] w-[340px] z-10 pointer-events-auto">
+            <div className="p-6 rounded-3xl bg-white/85 backdrop-blur-md border border-slate-200/80 shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <div className="w-9 h-9 rounded-xl bg-purple-50 text-[#6842C2] flex items-center justify-center border border-purple-100/80">
+                  <Sparkles className="w-4 h-4" />
                 </div>
-                <span className="text-[10px] font-mono font-bold text-[#D99B00] uppercase tracking-wider">
-                  PHASE 01
-                </span>
-                <span className="text-xs font-black text-[#0E0725] leading-tight">
-                  Discover & Scope
-                </span>
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#6842C2] block">
+                    THE UYAR METHODOLOGY
+                  </span>
+                  <h4 className="text-sm font-black text-[#0E0725]">
+                    Predictable Sprint Velocity
+                  </h4>
+                </div>
+              </div>
+              
+              <p className="text-xs text-slate-500 leading-relaxed font-normal mb-3.5">
+                Every platform delivery follows structured 2-week milestones with unencumbered IP transfer and guaranteed production stability.
+              </p>
+
+              <div className="grid grid-cols-2 gap-2 text-[10px] font-mono font-semibold text-slate-600">
+                <div className="flex items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-100/80">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>100% IP Transfer</span>
+                </div>
+                <div className="flex items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-100/80">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Bi-Weekly Demos</span>
+                </div>
+                <div className="flex items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-100/80">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Automated CI/CD</span>
+                </div>
+                <div className="flex items-center gap-1.5 p-2 rounded-xl bg-slate-50 border border-slate-100/80">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>99.98% SLA Uptime</span>
+                </div>
               </div>
             </div>
-
-            {/* STEP 02: Strategize & Architect */}
-            <div className="absolute top-[145px] left-[350px] w-[165px] h-[165px] z-24 group cursor-pointer transition-transform duration-300 hover:scale-105">
-              <div className="absolute inset-0 rounded-full bg-[#A84506] translate-x-[-10px] translate-y-[8px] shadow-lg" />
-              <div className="absolute inset-0 rounded-full bg-[#F97316] translate-x-[-5px] translate-y-[4px]" />
-              <div className="absolute inset-0 rounded-full bg-white shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center p-4 text-center">
-                <div className="w-10 h-10 rounded-full bg-orange-50 text-[#EA580C] flex items-center justify-center mb-1">
-                  {steps[1].icon}
-                </div>
-                <span className="text-[10px] font-mono font-bold text-[#EA580C] uppercase tracking-wider">
-                  PHASE 02
-                </span>
-                <span className="text-xs font-black text-[#0E0725] leading-tight">
-                  Architecture
-                </span>
-              </div>
-            </div>
-
-            <div className="absolute top-[215px] left-[130px] w-[205px] text-right z-30">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#EA580C] font-mono block mb-1">
-                02. ARCHITECTURE
-              </span>
-              <h4 className="text-base font-extrabold text-[#0E0725] mb-1">
-                Data Schema & Cloud
-              </h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Defining resilient microservices, secure APIs, and database ERDs.
-              </p>
-              <span className="inline-block mt-2 text-[10px] font-mono text-[#EA580C] bg-orange-50 px-2.5 py-0.5 rounded-md border border-orange-200/60 font-bold">
-                Cloud Blueprint
-              </span>
-            </div>
-
-            {/* STEP 03: UI/UX Prototyping */}
-            <div className="absolute top-[250px] left-[475px] w-[165px] h-[165px] z-23 group cursor-pointer transition-transform duration-300 hover:scale-105">
-              <div className="absolute inset-0 rounded-full bg-[#75111B] translate-x-[-10px] translate-y-[8px] shadow-lg" />
-              <div className="absolute inset-0 rounded-full bg-[#E11D48] translate-x-[-5px] translate-y-[4px]" />
-              <div className="absolute inset-0 rounded-full bg-white shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center p-4 text-center">
-                <div className="w-10 h-10 rounded-full bg-rose-50 text-[#E11D48] flex items-center justify-center mb-1">
-                  {steps[2].icon}
-                </div>
-                <span className="text-[10px] font-mono font-bold text-[#E11D48] uppercase tracking-wider">
-                  PHASE 03
-                </span>
-                <span className="text-xs font-black text-[#0E0725] leading-tight">
-                  UI/UX Experience
-                </span>
-              </div>
-            </div>
-
-            <div className="absolute top-[355px] left-[250px] w-[210px] text-right z-30">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#E11D48] font-mono block mb-1">
-                03. PROTOTYPE
-              </span>
-              <h4 className="text-base font-extrabold text-[#0E0725] mb-1">
-                Figma Prototypes
-              </h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Crafting brand-aligned design systems and clickable prototypes.
-              </p>
-              <span className="inline-block mt-2 text-[10px] font-mono text-[#E11D48] bg-rose-50 px-2.5 py-0.5 rounded-md border border-rose-200/60 font-bold">
-                Interactive Figma
-              </span>
-            </div>
-
-            {/* STEP 04: Iterative Engineering */}
-            <div className="absolute top-[355px] left-[600px] w-[165px] h-[165px] z-22 group cursor-pointer transition-transform duration-300 hover:scale-105">
-              <div className="absolute inset-0 rounded-full bg-[#0A414E] translate-x-[-10px] translate-y-[8px] shadow-lg" />
-              <div className="absolute inset-0 rounded-full bg-[#0284C7] translate-x-[-5px] translate-y-[4px]" />
-              <div className="absolute inset-0 rounded-full bg-white shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center p-4 text-center">
-                <div className="w-10 h-10 rounded-full bg-sky-50 text-[#0284C7] flex items-center justify-center mb-1">
-                  {steps[3].icon}
-                </div>
-                <span className="text-[10px] font-mono font-bold text-[#0284C7] uppercase tracking-wider">
-                  PHASE 04
-                </span>
-                <span className="text-xs font-black text-[#0E0725] leading-tight">
-                  Full-Stack Code
-                </span>
-              </div>
-            </div>
-
-            <div className="absolute top-[365px] left-[785px] w-[230px] text-left z-30">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#0284C7] font-mono block mb-1">
-                04. SPRINT CODE
-              </span>
-              <h4 className="text-base font-extrabold text-[#0E0725] mb-1">
-                Modular Engineering
-              </h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Bi-weekly sprints, clean React/Node architecture, and staging reviews.
-              </p>
-              <span className="inline-block mt-2 text-[10px] font-mono text-[#0284C7] bg-sky-50 px-2.5 py-0.5 rounded-md border border-sky-200/60 font-bold">
-                Staging Access
-              </span>
-            </div>
-
-            {/* STEP 05: Quality Assurance & Launch */}
-            <div className="absolute top-[460px] left-[725px] w-[165px] h-[165px] z-21 group cursor-pointer transition-transform duration-300 hover:scale-105">
-              <div className="absolute inset-0 rounded-full bg-[#41520F] translate-x-[-10px] translate-y-[8px] shadow-lg" />
-              <div className="absolute inset-0 rounded-full bg-[#84CC16] translate-x-[-5px] translate-y-[4px]" />
-              <div className="absolute inset-0 rounded-full bg-white shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center p-4 text-center">
-                <div className="w-10 h-10 rounded-full bg-lime-50 text-[#65A30D] flex items-center justify-center mb-1">
-                  {steps[4].icon}
-                </div>
-                <span className="text-[10px] font-mono font-bold text-[#65A30D] uppercase tracking-wider">
-                  PHASE 05
-                </span>
-                <span className="text-xs font-black text-[#0E0725] leading-tight">
-                  QA & Launch
-                </span>
-              </div>
-            </div>
-
-            <div className="absolute top-[480px] left-[910px] w-[230px] text-left z-30">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#65A30D] font-mono block mb-1">
-                05. RIGOROUS QA
-              </span>
-              <h4 className="text-base font-extrabold text-[#0E0725] mb-1">
-                Zero-Downtime Deploy
-              </h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Multi-device regression tests, Web Vitals audit & production deploy.
-              </p>
-              <span className="inline-block mt-2 text-[10px] font-mono text-[#65A30D] bg-lime-50 px-2.5 py-0.5 rounded-md border border-lime-200/60 font-bold">
-                Live QA Signoff
-              </span>
-            </div>
-
-            {/* STEP 06: Continuous Growth & Scale */}
-            <div className="absolute top-[565px] left-[850px] w-[165px] h-[165px] z-20 group cursor-pointer transition-transform duration-300 hover:scale-105">
-              <div className="absolute inset-0 rounded-full bg-[#123B17] translate-x-[-10px] translate-y-[8px] shadow-lg" />
-              <div className="absolute inset-0 rounded-full bg-[#10B981] translate-x-[-5px] translate-y-[4px]" />
-              <div className="absolute inset-0 rounded-full bg-white shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center p-4 text-center">
-                <div className="w-10 h-10 rounded-full bg-emerald-50 text-[#059669] flex items-center justify-center mb-1">
-                  {steps[5].icon}
-                </div>
-                <span className="text-[10px] font-mono font-bold text-[#059669] uppercase tracking-wider">
-                  PHASE 06
-                </span>
-                <span className="text-xs font-black text-[#0E0725] leading-tight">
-                  Scale & SLA
-                </span>
-              </div>
-            </div>
-
-            <div className="absolute top-[635px] left-[600px] w-[230px] text-right z-30">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#059669] font-mono block mb-1">
-                06. LONG-TERM SCALING
-              </span>
-              <h4 className="text-base font-extrabold text-[#0E0725] mb-1">
-                SLA & Evolution
-              </h4>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                Continuous telemetry, performance monitoring & dedicated engineering SLA.
-              </p>
-              <span className="inline-block mt-2 text-[10px] font-mono text-[#059669] bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200/60 font-bold">
-                24/7 Production SLA
-              </span>
-            </div>
-
           </div>
+
+          {/* Diagonal Cascading Overlapping 3D Discs (Zero Floating Clutter!) */}
+          <div className="relative w-full h-[760px]">
+            {steps.map((step, idx) => {
+              const pos = stepPositions[idx];
+              return (
+                <div 
+                  key={step.num}
+                  className="absolute group cursor-pointer transition-all duration-300 hover:scale-105 hover:z-40"
+                  style={{
+                    top: `${pos.top}px`,
+                    left: `${pos.left}px`,
+                    width: '180px',
+                    height: '180px',
+                    zIndex: pos.zIndex
+                  }}
+                >
+                  {/* Layer 1: Dark 3D Foundation Shadow */}
+                  <div 
+                    className="absolute inset-0 rounded-full translate-x-[-9px] translate-y-[8px] shadow-lg transition-transform duration-300 group-hover:translate-x-[-12px] group-hover:translate-y-[10px]" 
+                    style={{ backgroundColor: step.theme.darkBase }}
+                  />
+
+                  {/* Layer 2: Vibrant Colored 3D Rim */}
+                  <div 
+                    className="absolute inset-0 rounded-full translate-x-[-4px] translate-y-[4px] transition-transform duration-300 group-hover:translate-x-[-6px] group-hover:translate-y-[5px]" 
+                    style={{ backgroundColor: step.theme.rimColor }}
+                  />
+
+                  {/* Layer 3: Pristine White Top Face */}
+                  <div className="absolute inset-0 rounded-full bg-white shadow-[0_10px_25px_rgba(0,0,0,0.12)] border border-slate-100 flex flex-col items-center justify-center p-3 text-center transition-all duration-300 group-hover:shadow-[0_15px_35px_rgba(0,0,0,0.18)]">
+                    
+                    {/* Colored Icon in Subtle Tinted Circle */}
+                    <div 
+                      className="w-9 h-9 rounded-full flex items-center justify-center mb-1 shadow-2xs border border-slate-100/80 transition-transform duration-300 group-hover:scale-110"
+                      style={{ backgroundColor: `${step.theme.accentColor}15`, color: step.theme.accentColor }}
+                    >
+                      {step.icon}
+                    </div>
+
+                    {/* Phase Label */}
+                    <span 
+                      className="text-[10px] font-mono font-bold uppercase tracking-wider block"
+                      style={{ color: step.theme.accentColor }}
+                    >
+                      PHASE {step.num}
+                    </span>
+
+                    {/* Phase Title */}
+                    <h4 className="text-xs font-black text-[#0E0725] leading-tight mt-0.5">
+                      {step.shortTitle}
+                    </h4>
+
+                    {/* Concise Description */}
+                    <p className="text-[10px] text-slate-500 leading-tight mt-1 max-w-[145px] line-clamp-2">
+                      {step.desc}
+                    </p>
+
+                    {/* Deliverable Badge */}
+                    <span 
+                      className="inline-block mt-1.5 text-[8.5px] font-mono font-bold px-2 py-0.5 rounded-full border shadow-2xs"
+                      style={{ 
+                        backgroundColor: `${step.theme.accentColor}10`, 
+                        color: step.theme.accentColor,
+                        borderColor: `${step.theme.accentColor}30`
+                      }}
+                    >
+                      {step.deliverable}
+                    </span>
+
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
 
         {/* ======================================================== */}

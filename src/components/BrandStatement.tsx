@@ -4,7 +4,7 @@ import { Sparkles } from 'lucide-react';
 
 export const BrandStatement: React.FC = () => {
   return (
-    <section className="py-28 sm:py-36 bg-[#171717] text-white relative overflow-hidden">
+    <section className="py-10 sm:py-14 lg:py-16 bg-[#171717] text-white relative overflow-hidden">
       {/* Subtle geometric line pattern */}
       <div 
         className="absolute inset-0 opacity-10 pointer-events-none"
@@ -25,7 +25,7 @@ export const BrandStatement: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-xs font-mono tracking-widest uppercase mb-8 backdrop-blur-sm border border-white/10"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-white/90 text-xs font-mono tracking-widest uppercase mb-5 sm:mb-6 backdrop-blur-sm border border-white/10"
         >
           <Sparkles className="w-3.5 h-3.5 text-[#EEE8FA]" />
           <span>OUR ENGINEERING PHILOSOPHY</span>
@@ -37,7 +37,7 @@ export const BrandStatement: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12] max-w-5xl mx-auto mb-8 uppercase"
+          className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12] max-w-5xl mx-auto mb-4 sm:mb-6 uppercase"
         >
           Good technology doesn't just solve problems.{' '}
           <span className="text-[#EEE8FA] underline decoration-[#6842C2] decoration-4 underline-offset-8">

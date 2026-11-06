@@ -59,7 +59,7 @@ export const ConversionBar: React.FC = () => {
   ];
 
   return (
-    <section id="process" className="py-16 sm:py-24 lg:py-28 bg-[#FCFCFD] border-t border-slate-100 relative z-20 overflow-hidden">
+    <section id="process" className="pt-6 sm:pt-8 lg:pt-10 pb-8 sm:pb-10 lg:pb-12 bg-[#FCFCFD] border-t border-slate-100 relative z-20 overflow-hidden">
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 right-0 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] bg-purple-200/20 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none" />
@@ -70,7 +70,7 @@ export const ConversionBar: React.FC = () => {
         {/* ======================================================== */}
         {/* SECTION HEADER                                           */}
         {/* ======================================================== */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 lg:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-10">
           <span className="text-[10px] sm:text-xs font-bold text-[#7C3AED] tracking-widest uppercase bg-[#F3E8FF] px-3.5 py-1.5 rounded-full mb-3 sm:mb-4 inline-block shadow-xs border border-purple-100">
             End-To-End Delivery
           </span>

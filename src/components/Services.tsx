@@ -205,7 +205,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
   ];
 
   return (
-    <section id="services" className="py-12 sm:py-16 lg:py-20 bg-[#F8F9FA] relative z-20 border-t border-slate-100">
+    <section id="services" className="py-8 sm:py-10 lg:py-12 bg-[#F8F9FA] relative z-20 border-t border-slate-100">
       
       {/* Background ambient lighting */}
       <div className="absolute top-1/3 left-0 w-[400px] h-[400px] bg-purple-200/15 rounded-full blur-[130px] pointer-events-none" />
@@ -216,7 +216,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
         {/* ======================================================== */}
         {/* SECTION HEADER (COMPACT)                                */}
         {/* ======================================================== */}
-        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <span className="text-[11px] font-bold text-[#6842C2] tracking-widest uppercase bg-[#EEE8FA] px-3.5 py-1 rounded-full mb-2.5 inline-block shadow-2xs border border-purple-100">
             WHAT WE BUILD
           </span>

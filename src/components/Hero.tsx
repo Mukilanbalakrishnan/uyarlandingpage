@@ -26,7 +26,6 @@ interface ServiceCardData {
   image: string;
   title: string;
   subtitle: string;
-  price: string;
   bgColor: string;
   imageScale?: string;
 }
@@ -40,7 +39,6 @@ const SERVICE_CARDS: ServiceCardData[] = [
     image: cardWeb,
     title: 'Custom Websites',
     subtitle: 'Next.js & Tailwind CSS',
-    price: 'From ₹25,000',
     bgColor: 'from-[#F0EDFC] to-[#E3DCFB]',
     imageScale: 'scale-90',
   },
@@ -52,7 +50,6 @@ const SERVICE_CARDS: ServiceCardData[] = [
     image: cardCloud,
     title: 'Web Applications',
     subtitle: 'Multi-Tenant Cloud Platforms',
-    price: 'From ₹45,000',
     bgColor: 'from-[#F3EEFF] to-[#E5D7FE]',
     imageScale: 'scale-95',
   },
@@ -64,7 +61,6 @@ const SERVICE_CARDS: ServiceCardData[] = [
     image: cardMobile,
     title: 'Mobile Applications',
     subtitle: 'React Native & Flutter',
-    price: 'From ₹65,000',
     bgColor: 'from-[#E6FAF2] to-[#CCF5E6]',
     imageScale: 'scale-85',
   },
@@ -76,7 +72,6 @@ const SERVICE_CARDS: ServiceCardData[] = [
     image: cardGears,
     title: 'ERP & Custom Tools',
     subtitle: 'Automated Workflows',
-    price: 'Custom Plan',
     bgColor: 'from-[#EFF6FF] to-[#DBEAFE]',
     imageScale: 'scale-85',
   },
@@ -98,7 +93,7 @@ export const Hero: React.FC<HeroProps> = ({ onBuildProject, onExploreWork, onSel
   return (
     <section 
       id="home" 
-      className="relative w-full pt-20 sm:pt-24 pb-8 sm:pb-12 overflow-hidden bg-white min-h-[96vh] flex flex-col justify-between"
+      className="relative w-full pt-20 sm:pt-24 pb-4 sm:pb-6 overflow-hidden bg-white flex flex-col"
     >
       {/* ======================================================== */}
       {/* DYNAMIC ANIMATED BACKGROUND CURVES & FILAMENTS           */}
@@ -370,12 +365,12 @@ export const Hero: React.FC<HeroProps> = ({ onBuildProject, onExploreWork, onSel
       </div>
 
       {/* Main unified responsive content wrapper */}
-      <div className="w-full max-w-[1580px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 flex-grow flex flex-col justify-between">
+      <div className="w-full max-w-[1580px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 flex flex-col gap-6 sm:gap-8">
         
         {/* ======================================================== */}
         {/* TOP SECTION: Two-column layout with isolated 3D laptop   */}
         {/* ======================================================== */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center my-auto pt-2 pb-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-12 items-center pt-1 pb-2">
           
           {/* Top Left: Headline, Subtitle, Dual Action CTAs */}
           <div className="lg:col-span-6 flex flex-col items-start text-left z-20">
@@ -493,10 +488,10 @@ export const Hero: React.FC<HeroProps> = ({ onBuildProject, onExploreWork, onSel
                     </p>
                   </div>
 
-                  {/* Price Tag & Circular Arrow Button */}
-                  <div className="flex items-center justify-between pt-3 mt-1.5 border-t border-slate-100">
-                    <span className="text-sm font-extrabold text-[#0E0725]">
-                      {card.price}
+                  {/* Action Link & Circular Arrow Button */}
+                  <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-slate-100">
+                    <span className="text-xs sm:text-[13px] font-bold text-[#6320EE] group-hover:text-[#5218C8] flex items-center gap-1 transition-colors">
+                      Explore Solution
                     </span>
 
                     <button
@@ -504,10 +499,10 @@ export const Hero: React.FC<HeroProps> = ({ onBuildProject, onExploreWork, onSel
                         e.stopPropagation();
                         handleCardClick(card.serviceName);
                       }}
-                      aria-label={`Select ${card.title}`}
+                      aria-label={`Explore ${card.title}`}
                       className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#EDE7F6] group-hover:bg-[#6320EE] text-[#6320EE] group-hover:text-white flex items-center justify-center transition-all duration-200 shadow-xs"
                     >
-                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+                      <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] group-hover:translate-x-0.5 transition-transform" />
                     </button>
                   </div>
                 </div>
